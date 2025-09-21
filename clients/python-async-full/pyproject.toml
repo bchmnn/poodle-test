@@ -1,6 +1,6 @@
 [project]
-name = "poodle_async"
-version = "4.5.0"
+name = "poodle_async_full"
+version = "4.5.0.post1"
 description = "Moodle Webservice API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},
@@ -43,7 +43,7 @@ extension-pkg-whitelist = "pydantic"
 
 [tool.mypy]
 files = [
-  "poodle_async",
+  "poodle_async_full",
   #"test",  # auto-generated tests
   "tests", # hand-written tests
 ]
@@ -81,7 +81,7 @@ disallow_any_generics = true
 
 [[tool.mypy.overrides]]
 module = [
-  "poodle_async.configuration",
+  "poodle_async_full.configuration",
 ]
 warn_unused_ignores = true
 strict_equality = true
