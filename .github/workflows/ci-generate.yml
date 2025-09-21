@@ -49,8 +49,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: true
-          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          submodules: false
 
       - name: Download generated artifact
         uses: actions/download-artifact@v4
@@ -63,8 +63,8 @@ jobs:
 
       - name: Commit regenerated clients
         run: |
-          git config user.name  "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add clients
           if git diff --cached --quiet; then
             echo "No changes in clients — skipping commit."
