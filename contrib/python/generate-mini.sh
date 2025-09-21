@@ -6,6 +6,6 @@ DIR="$(dirname -- "$(realpath -- "${BASH_SOURCE[0]}")")"
 "$DIR/generate.sh" \
     --project="poodle_async_mini" \
     --package="poodle_async_mini" \
-    --version="4.1.0" \
+    --version="4.5.0" \
     --whitelist="$DIR/whitelist.txt" \
     $@
