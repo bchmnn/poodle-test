@@ -29,19 +29,21 @@ jobs:
       - name: Extract methods.json
         run: ./poodle-cli extract -d ./moodle-docker -o methods.json ./moodle
 
-      - name: Generate python async-mini
+      - name: Generate python-async-mini
         run: |
+          rm -rf clients/python-async-mini
           contrib/python/generate-mini.sh \
             --methods=methods.json \
             --version="$POODLE_VERSION" \
             --build="$POODLE_BUILD" \
             -p ./poodle-cli \
-            -m ./moodle -d \
-            ./moodle-docker \
+            -m ./moodle \
+            -d ./moodle-docker \
             clients/python-async-mini
 
-      - name: Generate python async-full
+      - name: Generate python-async-full
         run: |
+          rm -rf clients/python-async-full
           contrib/python/generate-full.sh \
             --methods=methods.json \
             --version="$POODLE_VERSION" \
@@ -78,7 +80,9 @@ jobs:
           path: .
 
       - name: Extract generated clients
-        run: tar -xzf clients.tgz
+        run: |
+          rm -rf clients
+          tar -xzf clients.tgz
 
       - name: Commit regenerated clients
         run: |
