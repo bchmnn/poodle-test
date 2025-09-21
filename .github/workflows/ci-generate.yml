@@ -15,6 +15,9 @@ jobs:
           submodules: true
           fetch-depth: 0
 
+      - name: Load VERSION into env
+        run: cat VERSION >> $GITHUB_ENV
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -27,10 +30,26 @@ jobs:
         run: ./poodle-cli extract -d ./moodle-docker -o methods.json ./moodle
 
       - name: Generate python async-mini
-        run: contrib/python/generate-mini.sh --methods=methods.json -p ./poodle-cli -m ./moodle -d ./moodle-docker clients/python-async-mini
+        run: |
+          contrib/python/generate-mini.sh \
+            --methods=methods.json \
+            --version="$POODLE_VERSION" \
+            --build="$POODLE_BUILD" \
+            -p ./poodle-cli \
+            -m ./moodle -d \
+            ./moodle-docker \
+            clients/python-async-mini
 
       - name: Generate python async-full
-        run: contrib/python/generate-full.sh --methods=methods.json -p ./poodle-cli -m ./moodle -d ./moodle-docker clients/python-async-full
+        run: |
+          contrib/python/generate-full.sh \
+            --methods=methods.json \
+            --version="$POODLE_VERSION" \
+            --build="$POODLE_BUILD" \
+            -p ./poodle-cli \
+            -m ./moodle \
+            -d ./moodle-docker \
+            clients/python-async-full
 
       - name: Generate clients artifact
         run: tar -czf clients.tgz clients

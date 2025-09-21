@@ -53,9 +53,12 @@ jobs:
           ref: ${{ github.head_ref }}
           submodules: false
 
+      - name: Load VERSION into env
+        run: cat VERSION >> $GITHUB_ENV
+
       - name: Tag commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git tag "v$(cat VERSION)"
-          git push origin "v$(cat VERSION)"
+          git tag "v$POODLE_VERSION-$POODLE_BUILD"
+          git push origin "v$POODLE_VERSION-$POODLE_BUILD"
